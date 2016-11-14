@@ -1,5 +1,5 @@
 <h1><%= @team.name %></h1>
-<% if current_user.admin? || current_team? %>
+<% if current_user.admin? || current_team?(@team) %>
 <%= link_to "Edit", edit_team_path(@team), class: "btn btn-primary" %>
 <% end %>
 <img src="<%= @team.logo %>" />
