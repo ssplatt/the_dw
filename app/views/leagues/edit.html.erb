@@ -1,0 +1,21 @@
+<% provide(:title, "Edit #{@league.name}") %>
+<h1>Update league info</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@league) do |f| %>
+      <%= render 'shared/league_error_messages' %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+
+      <%= f.label :num_teams %>
+      <%= f.text_field :num_teams, class: 'form-control' %>
+
+      <%= f.label :num_divisions %>
+      <%= f.text_field :num_divisions, class: 'form-control' %>
+
+      <%= f.submit "Save changes", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

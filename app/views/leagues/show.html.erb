@@ -1,0 +1,21 @@
+<% provide(:title, @league.name) %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="league_info">
+      <h1>
+        <%= @league.name %>
+      </h1>
+      <% if @team.is_commissioner? %>
+      <div class=""><%= link_to "Edit", edit_league_path, class: "btn btn-primary" %></div>
+      <% end %>
+    </section>
+    <section class="team_info">
+      <% if @league.teams.count <= @league.num_teams %>
+        <%= link_to "Invite more teams", invite_url(:league_id => @league.id, :user_id => ""), class: "btn btn-primary" %>
+      <% end %>
+      <ul>
+        <%= render @league.divisions %>
+      </ul>
+    </section>
+  </aside>
+</div>

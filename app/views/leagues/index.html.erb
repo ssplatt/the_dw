@@ -1,0 +1,10 @@
+<% provide(:title, 'All leagues') %>
+<h1>All leagues</h1>
+
+<%= will_paginate %>
+
+<ul class="leagues">
+  <%= render @leagues %>
+</ul>
+
+<%= will_paginate %>

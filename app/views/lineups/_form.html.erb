@@ -1,0 +1,68 @@
+<%= form_for(@lineup) do |f| %>
+  <%= render 'shared/lineup_error_messages' %>
+  
+  <%= f.label :week %>
+  <%= f.select :week, (1..17), :disabled => disabled_weeks, class: 'form-control' %>
+  
+  <%= f.label :qb_id %>
+  <%= f.select :qb_id, 
+      options_for_select(
+        @nfl_qbs.map{ 
+          |p| [ "#{p["name"]} (#{p["teamAbbr"]}) (projected #{p["weekProjectedPts"]})", p["id"] ]
+        },
+        selected: f.object.qb_id,
+        disabled: selected_players
+      ),
+      prompt: "Select a QB", 
+      class: 'form-control' %>
+  
+  <%= f.label :rb1_id %>
+  <%= f.select :rb1_id, 
+      options_for_select(
+        @nfl_rbs.map{ 
+          |p| [ "#{p["name"]} (#{p["teamAbbr"]}) (projected #{p["weekProjectedPts"]})", p["id"] ]
+        },
+        disabled: selected_players
+      ),
+      selected: f.object.rb1_id,
+      prompt: "Select a RB", 
+      class: 'form-control' %>
+  
+  <%= f.label :rb2_id %>
+  <%= f.select :rb2_id, 
+      options_for_select(
+        @nfl_rbs.map{ 
+          |p| [ "#{p["name"]} (#{p["teamAbbr"]}) (projected #{p["weekProjectedPts"]})", p["id"] ]
+        },
+        selected: f.object.rb2_id,
+        disabled: selected_players
+      ),
+      prompt: "Select a RB", 
+      class: 'form-control' %>
+  
+  <%= f.label :wr1_id %>
+  <%= f.select :wr1_id, 
+      options_for_select(
+        @nfl_wrstes.map{ 
+          |p| [ "#{p["name"]} (#{p["teamAbbr"]}) (projected #{p["weekProjectedPts"]})", p["id"] ] 
+        },
+      selected: f.object.wr1_id,
+      disabled: selected_players
+      ),
+      prompt: "Select a WR/TE", 
+      class: 'form-control' %>
+  
+  <%= f.label :wr2_id %>
+  <%= f.select :wr2_id, 
+      options_for_select(
+        @nfl_wrstes.map{ 
+          |p| [ "#{p["name"]} (#{p["teamAbbr"]}) (projected #{p["weekProjectedPts"]})", p["id"] ]
+        },
+        selected: f.object.wr2_id,
+        disabled: selected_players
+      ), 
+      prompt: "Select a WR/TE", 
+      class: 'form-control' %>
+  
+  <%= f.submit "Save", class: "btn btn-primary" %>
+<% end %>

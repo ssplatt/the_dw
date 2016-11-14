@@ -1,0 +1,26 @@
+<% provide(:title, "Lineup") %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="lineup_info">
+      <ul>
+        <li>League: <%= link_to @lineup.team.league.name, @lineup.team.league %></li>
+        <li>Team: <%= link_to @lineup.team.name, @lineup.team %></li>
+        <li>Manager: <%= link_to @lineup.team.user.name, @lineup.team.user %></li>
+        <li>Week: <%= @lineup.week %></li>
+      </ul>
+      <ul>
+        <h3>Lineup:</h3>
+        <li>QB: <%= @qb["name"] %> (<%= @qb["teamAbbr"] %>) | <%= @qb["weeks"][@lineup.week-1]["stats"] %></li>
+        <li>RB: <%= @rb1["name"] %> (<%= @rb1["teamAbbr"] %>) | <%= @rb1["weeks"][@lineup.week-1]["stats"] %></li>
+        <li>RB: <%= @rb2["name"] %> (<%= @rb2["teamAbbr"] %>) | <%= @rb2["weeks"][@lineup.week-1]["stats"] %></li>
+        <li>WR/TE: <%= @wr1["name"] %> (<%= @wr1["teamAbbr"] %>) | <%= @wr1["weeks"][@lineup.week-1]["stats"] %></li>
+        <li>WR/TE: <%= @wr2["name"] %> (<%= @wr2["teamAbbr"] %>) | <%= @wr2["weeks"][@lineup.week-1]["stats"] %></li>
+      </ul>
+    </section>
+  </aside>
+  <div class="col-md-2">
+    <% if (@lineup.week >= current_week) || current_user.admin? || current_team.is_commissioner? %>
+      <%= link_to "edit lineup", edit_lineup_url(@lineup), class: "btn btn-default" %>
+    <% end %>
+  </div>
+</div>

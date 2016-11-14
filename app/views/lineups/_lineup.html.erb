@@ -1,0 +1,5 @@
+<li><%= link_to "Week #{lineup.week}", lineup %>
+  <% if (lineup.week >= current_week) || current_user.admin? || current_team.is_commissioner? %>
+    | <%= link_to "edit", edit_lineup_url(lineup) %>
+  <% end %>
+</li>

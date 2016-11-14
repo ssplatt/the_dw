@@ -1,0 +1,21 @@
+<% provide(:title, 'Make a new league') %>
+<h1>Make a new league</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@league, url: leagues_path) do |f| %>
+      <%= render 'shared/league_error_messages' %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name, value: Faker::Hipster.words(3),class: 'form-control' %>
+
+      <%= f.label :num_teams %>
+      <%= f.text_field :num_teams, value: '16', class: 'form-control' %>
+      
+      <%= f.label :num_divisions %>
+      <%= f.text_field :num_divisions, value: '4', class: 'form-control' %>
+
+      <%= f.submit "Create league", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

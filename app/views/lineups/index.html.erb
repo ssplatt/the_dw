@@ -1,0 +1,10 @@
+<% provide(:title, 'All lineups') %>
+<h1>All lineups</h1>
+
+<%= will_paginate %>
+
+<ul class="lineups">
+  <%= render @lineups %>
+</ul>
+
+<%= will_paginate %>
