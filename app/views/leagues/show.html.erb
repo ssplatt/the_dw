@@ -10,8 +10,8 @@
       <% end %>
     </section>
     <section class="team_info">
-      <% if @league.teams.count <= @league.num_teams %>
-        <%= link_to "Invite more teams", invite_url(:league_id => @league.id, :user_id => ""), class: "btn btn-primary" %>
+      <% if @league.teams.count < @league.num_teams %>
+        <%= link_to "Invite more teams", invite_url(:league_id => @league.id), class: "btn btn-primary" %>
       <% end %>
       <ul>
         <%= render @league.divisions %>

@@ -21,10 +21,13 @@ class LineupsController < ApplicationController
   def new
     @nfl = NFLApi.new
     @nfl_qbs = @nfl.get_players_stats({:position => "QB"})["players"]
+    @nfl_qbs = @nfl_qbs.sort_by { |player| [player['weekProjectedPts'].to_f] }.reverse!
     @nfl_rbs = @nfl.get_players_stats({:position => "RB"})["players"]
+    @nfl_rbs = @nfl_rbs.sort_by { |player| [player['weekProjectedPts'].to_f] }.reverse!
     @nfl_wrs = @nfl.get_players_stats({:position => "WR"})["players"]
     @nfl_tes = @nfl.get_players_stats({:position => "TE"})["players"]
     @nfl_wrstes = @nfl_wrs + @nfl_tes
+    @nfl_wrstes = @nfl_wrstes.sort_by { |player| [player['weekProjectedPts'].to_f] }.reverse!
     @lineup = Lineup.new
     @lineup.week = @nfl.get_players_stats({:position => "QB"})["week"]
     #@lineup.season = @nfl.get_players_stats({:position => "QB"})["season"]

@@ -2,6 +2,10 @@ class TeamsController < ApplicationController
   before_action :correct_team,   only: [:edit, :update]
   before_action :admin_user,     only: :destroy
   
+  def index
+    @teams = current_user.teams
+  end
+  
   def show
     @team = Team.find(params[:id])
     @league = @team.league
@@ -24,9 +28,12 @@ class TeamsController < ApplicationController
   end
   
   def new
-    @league ||= current_league
-    if @league.num_teams < @league.num_teams + 1
+    @user = current_user
+    current_league ? @league = current_league : @league = @user.league.first
+    
+    if @league.num_teams >= @league.teams.count+1
       @team = @league.teams.new
+      @team.league_id = @league.id
     else
       flash[:danger] = "League full"
       redirect_to @league
@@ -35,8 +42,6 @@ class TeamsController < ApplicationController
   
   def create
     @team = Team.new(team_params)
-    @team.league_id ||= current_league.id
-    @team.user_id ||= current_user.id
     @team.random_name
     @team.division = @team.league.divisions.first
 
@@ -44,7 +49,7 @@ class TeamsController < ApplicationController
       @team.create_invite_digest
       #@team.send_invite_email
       flash[:info] = "Invite created"
-      redirect_to @league
+      redirect_to @team.league
     else
       flash.now[:danger] = "User or League not found"
       render 'new'

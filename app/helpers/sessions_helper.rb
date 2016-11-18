@@ -105,14 +105,14 @@ module SessionsHelper
   
   # stores the current league
   def store_league
-    if (current_user.leagues.find(@league.id))
+    if current_user.leagues.include?(@league)
       session[:league_id] = @league.id
     end
   end
   
   # store the current team
   def store_team
-    if (current_user.teams.find(@team.id))
+    if current_user.teams.include?(@team)
       session[:team_id] = @team.id
       session[:league_id] = @team.league_id
     end
@@ -120,8 +120,8 @@ module SessionsHelper
   
   # store current line up
   def store_lineup
-    if (current_user.teams.lineups.find(@lineup.id))
-      session[:lineup_id] = @lineup.id
+    if current_user.lineups.include?(@lineup)
+      session[:lineup_id] = @lineup_id
       session[:team_id] = @lineup.team_id
       session[:league_id] = @lineup.league_id
     end
