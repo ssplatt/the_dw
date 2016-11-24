@@ -16,6 +16,14 @@ class LineupsController < ApplicationController
     @rb2 = @nfl.get_players_details(@lineup.rb2_id)["players"][0]
     @wr1 = @nfl.get_players_details(@lineup.wr1_id)["players"][0]
     @wr2 = @nfl.get_players_details(@lineup.wr2_id)["players"][0]
+    @lineup.qb_score = calc_score(@qb)
+    @lineup.rb1_score = calc_score(@rb1)
+    @lineup.rb2_score = calc_score(@rb2)
+    @lineup.wr1_score = calc_score(@wr1)
+    @lineup.wr2_score = calc_score(@wr2)
+    @lineup.total_score = @lineup.qb_score + @lineup.rb1_score + @lineup.rb2_score +
+                          @lineup.wr1_score + @lineup.wr2_score
+    @lineup.save
   end
   
   def new
@@ -83,6 +91,39 @@ class LineupsController < ApplicationController
     def correct_lineup
       @lineup = Lineup.find(params[:id])
       redirect_to(@lineup) unless current_lineup?(@lineup) || current_user.admin?
+    end
+    
+    def calc_score(player)
+      score = 0
+      
+      player["weeks"][@lineup.week-1]["stats"].each do |k,v|
+        case k
+        when "5"
+          score += v.to_i * @lineup.team.league.pa_yd
+        when "6"
+          score += v.to_i * @lineup.team.league.pa_td
+        when "7"
+          score += v.to_i * @lineup.team.league.pa_int
+        when "14"
+          score += v.to_i * @lineup.team.league.ru_yd
+        when "15"
+          score += v.to_i * @lineup.team.league.ru_td
+        when "20"
+          score += v.to_i * @lineup.team.league.rec
+        when "21"
+          score += v.to_i * @lineup.team.league.re_yd
+        when "22"
+          score += v.to_i * @lineup.team.league.re_td
+        when "30"
+          score += v.to_i * @lineup.team.league.fuml
+        when "31"
+          score += v.to_i * @lineup.team.league.fum
+        when "32"
+          score += v.to_i * @lineup.team.league.tpc
+        end
+      end
+      
+      return score
     end
   
 end

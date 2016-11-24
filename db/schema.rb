@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161105230140) do
+ActiveRecord::Schema.define(version: 20161124181153) do
 
   create_table "divisions", force: :cascade do |t|
     t.text     "name"
@@ -27,6 +27,17 @@ ActiveRecord::Schema.define(version: 20161105230140) do
     t.integer  "season",        default: 2016
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.float    "pa_yd",         default: 0.04
+    t.integer  "pa_td",         default: 6
+    t.integer  "pa_int",        default: -2
+    t.float    "ru_yd",         default: 0.1
+    t.integer  "ru_td",         default: 6
+    t.float    "re_yd",         default: 0.1
+    t.float    "rec",           default: 0.5
+    t.integer  "re_td",         default: 6
+    t.integer  "fum",           default: -1
+    t.integer  "fuml",          default: -1
+    t.integer  "tpc",           default: 2
     t.index ["name"], name: "index_leagues_on_name"
   end
 
@@ -38,8 +49,14 @@ ActiveRecord::Schema.define(version: 20161105230140) do
     t.integer  "wr2_id"
     t.integer  "week"
     t.integer  "team_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.float    "qb_score",    default: 0.0
+    t.float    "rb1_score",   default: 0.0
+    t.float    "rb2_score",   default: 0.0
+    t.float    "wr1_score",   default: 0.0
+    t.float    "wr2_score",   default: 0.0
+    t.float    "total_score", default: 0.0
     t.index ["team_id"], name: "index_lineups_on_team_id"
   end
 

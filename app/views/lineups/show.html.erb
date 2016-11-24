@@ -10,11 +10,12 @@
       </ul>
       <ul>
         <h3>Lineup:</h3>
-        <li>QB: <%= @qb["name"] %> (<%= @qb["teamAbbr"] %>) | <%= @qb["weeks"][@lineup.week-1]["stats"] %></li>
-        <li>RB: <%= @rb1["name"] %> (<%= @rb1["teamAbbr"] %>) | <%= @rb1["weeks"][@lineup.week-1]["stats"] %></li>
-        <li>RB: <%= @rb2["name"] %> (<%= @rb2["teamAbbr"] %>) | <%= @rb2["weeks"][@lineup.week-1]["stats"] %></li>
-        <li>WR/TE: <%= @wr1["name"] %> (<%= @wr1["teamAbbr"] %>) | <%= @wr1["weeks"][@lineup.week-1]["stats"] %></li>
-        <li>WR/TE: <%= @wr2["name"] %> (<%= @wr2["teamAbbr"] %>) | <%= @wr2["weeks"][@lineup.week-1]["stats"] %></li>
+        <li>QB: <%= @qb["name"] %> (<%= @qb["teamAbbr"] %>) - <%= @lineup.qb_score %></li>
+        <li>RB: <%= @rb1["name"] %> (<%= @rb1["teamAbbr"] %>) - <%= @lineup.rb1_score %></li>
+        <li>RB: <%= @rb2["name"] %> (<%= @rb2["teamAbbr"] %>) - <%= @lineup.rb2_score %></li>
+        <li>WR/TE: <%= @wr1["name"] %> (<%= @wr1["teamAbbr"] %>) - <%= @lineup.wr1_score %></li>
+        <li>WR/TE: <%= @wr2["name"] %> (<%= @wr2["teamAbbr"] %>) - <%= @lineup.wr2_score %></li>
+        <li>Total: <%= @lineup.total_score %></li>
       </ul>
     </section>
   </aside>
