@@ -46,6 +46,7 @@ class TeamsController < ApplicationController
     @team.division = @team.league.divisions.first
 
     if @team.save
+      @team.seed_lineups
       @team.create_invite_digest
       #@team.send_invite_email
       flash[:info] = "Invite created"

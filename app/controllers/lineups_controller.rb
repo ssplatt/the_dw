@@ -11,16 +11,36 @@ class LineupsController < ApplicationController
   def show
     @lineup = Lineup.find(params[:id])
     @nfl = NFLApi.new
-    @qb = @nfl.get_players_details(@lineup.qb_id)["players"][0]
-    @rb1 = @nfl.get_players_details(@lineup.rb1_id)["players"][0]
-    @rb2 = @nfl.get_players_details(@lineup.rb2_id)["players"][0]
-    @wr1 = @nfl.get_players_details(@lineup.wr1_id)["players"][0]
-    @wr2 = @nfl.get_players_details(@lineup.wr2_id)["players"][0]
-    @lineup.qb_score = calc_score(@qb)
-    @lineup.rb1_score = calc_score(@rb1)
-    @lineup.rb2_score = calc_score(@rb2)
-    @lineup.wr1_score = calc_score(@wr1)
-    @lineup.wr2_score = calc_score(@wr2)
+    if @lineup.qb_id?
+      @qb = @nfl.get_players_details(@lineup.qb_id)["players"][0]
+      @lineup.qb_score = calc_score(@qb)
+    else
+      @qb = {}
+    end
+    if @lineup.rb1_id?
+      @rb1 = @nfl.get_players_details(@lineup.rb1_id)["players"][0]
+      @lineup.rb1_score = calc_score(@rb1)
+    else
+      @rb1 = {}
+    end
+    if @lineup.rb2_id?
+      @rb2 = @nfl.get_players_details(@lineup.rb2_id)["players"][0]
+      @lineup.rb2_score = calc_score(@rb2)
+    else
+      @rb2 = {}
+    end
+    if @lineup.wr1_id?
+      @wr1 = @nfl.get_players_details(@lineup.wr1_id)["players"][0]
+      @lineup.wr1_score = calc_score(@wr1)
+    else
+      @wr1 = {}
+    end
+    if @lineup.wr2_id?
+      @wr2 = @nfl.get_players_details(@lineup.wr2_id)["players"][0]
+      @lineup.wr2_score = calc_score(@wr2)
+    else
+      @wr2 = {}
+    end
     @lineup.total_score = @lineup.qb_score + @lineup.rb1_score + @lineup.rb2_score +
                           @lineup.wr1_score + @lineup.wr2_score
     @lineup.save
@@ -53,16 +73,17 @@ class LineupsController < ApplicationController
   end
   
   def edit
+    @lineup = Lineup.find(params[:id])
+    @lineup.week ||= current_week
     @nfl = NFLApi.new
-    @nfl_qbs = @nfl.get_players_stats({:position => "QB"})["players"]
+    @nfl_qbs = @nfl.get_players_stats({:position => "QB", :week => @lineup.week})["players"]
     @nfl_qbs = @nfl_qbs.sort_by { |player| [player['weekProjectedPts'].to_f] }.reverse!
-    @nfl_rbs = @nfl.get_players_stats({:position => "RB"})["players"]
+    @nfl_rbs = @nfl.get_players_stats({:position => "RB", :week => @lineup.week})["players"]
     @nfl_rbs = @nfl_rbs.sort_by { |player| [player['weekProjectedPts'].to_f] }.reverse!
-    @nfl_wrs = @nfl.get_players_stats({:position => "WR"})["players"]
-    @nfl_tes = @nfl.get_players_stats({:position => "TE"})["players"]
+    @nfl_wrs = @nfl.get_players_stats({:position => "WR", :week => @lineup.week})["players"]
+    @nfl_tes = @nfl.get_players_stats({:position => "TE", :week => @lineup.week})["players"]
     @nfl_wrstes = @nfl_wrs + @nfl_tes
     @nfl_wrstes = @nfl_wrstes.sort_by { |player| [player['weekProjectedPts'].to_f] }.reverse!
-    @lineup = Lineup.find(params[:id])
   end
   
   def update

@@ -26,6 +26,16 @@ class Team < ApplicationRecord
     self.name = Faker::Team.name
   end
   
+  def seed_lineups
+    (1..17).each do |week|
+      if not self.lineups.find_by(week: week)
+        lu = self.lineups.new
+        lu.week = week
+        lu.save
+      end
+    end
+  end
+  
   # Sets the invitation attributes.
   def create_invite_digest
     self.invite_digest = Team.new_token

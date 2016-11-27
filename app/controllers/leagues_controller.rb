@@ -30,6 +30,7 @@ class LeaguesController < ApplicationController
                               :user_id => @user.id,
                               :division_id => @division.id)
     @team.random_name
+    @team.seed_lineups
     @team.save
     if @league.save
       flash[:success] = "League successfully created."
