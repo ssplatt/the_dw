@@ -1,6 +1,6 @@
 <li>
   <strong><%= division.name %></strong>
   <ul>
-    <%= render division.teams %>
+    <%= render partial: "divisions/team", collection: division.teams %>
   </ul>
 </li>
