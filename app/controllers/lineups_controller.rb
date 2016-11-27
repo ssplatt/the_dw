@@ -74,7 +74,6 @@ class LineupsController < ApplicationController
   
   def edit
     @lineup = Lineup.find(params[:id])
-    @lineup.week ||= current_week
     @nfl = NFLApi.new
     @nfl_qbs = @nfl.get_players_stats({:position => "QB", :week => @lineup.week})["players"]
     @nfl_qbs = @nfl_qbs.sort_by { |player| [player['weekProjectedPts'].to_f] }.reverse!
