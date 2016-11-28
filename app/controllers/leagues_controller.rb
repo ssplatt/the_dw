@@ -81,7 +81,6 @@ class LeaguesController < ApplicationController
     # confirm user is a part of the league
     def allowed_user
       @league = League.find(params[:id])
-      flash[:warning] = "Sorry, you do not have permission to view that"
       redirect_back_or(leagues_url) unless current_user.leagues.include?(@league)
     end
 end
