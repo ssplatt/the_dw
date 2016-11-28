@@ -1,5 +1,6 @@
 <li><%= link_to "Week #{lineup.week}", lineup %>
+  | <%= lineup.total_score %>
   <% if (lineup.week >= current_week) || current_user.admin? || current_team.is_commissioner? %>
-    | <%= link_to "edit", edit_lineup_url(lineup) %>
+    | <%= link_to "edit", edit_lineup_url(lineup), class: "btn btn-default" %>
   <% end %>
 </li>
