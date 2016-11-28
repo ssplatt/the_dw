@@ -49,11 +49,9 @@ module SessionsHelper
     session.delete(:user_id)
     session.delete(:league_id)
     session.delete(:team_id)
-    session.delete(:lineup_id)
     @current_user = nil
     @current_league = nil
     @current_team = nil
-    @current_lineup = nil
   end
   
   # Redirects to stored location (or to the default).
@@ -91,22 +89,12 @@ module SessionsHelper
     end
   end
   
-  # Returns true if the given lineup is the current lineup.
-  def current_lineup?(lineup)
-    lineup == current_lineup
-  end
-  
-  # Returns the current lineup.
-  def current_lineup
-    if (lineup_id = session[:lineup_id])
-      @current_lineup ||= Lineup.find_by(id: lineup_id)
-    end
-  end
-  
   # stores the current league
   def store_league
     if current_user.leagues.include?(@league)
       session[:league_id] = @league.id
+      team = current_user.teams.find_by(league_id: @league.id)
+      session[:team_id] = team.id
     end
   end
   
@@ -114,16 +102,15 @@ module SessionsHelper
   def store_team
     if current_user.teams.include?(@team)
       session[:team_id] = @team.id
-      session[:league_id] = @team.league_id
+      session[:league_id] = @team.league.id
     end
   end
   
-  # store current line up
+  # store team and league based off lineup
   def store_lineup
-    if current_user.lineups.include?(@lineup)
-      session[:lineup_id] = @lineup_id
-      session[:team_id] = @lineup.team_id
-      session[:league_id] = @lineup.league_id
+    if @lineup.team.user == current_user
+      session[:league_id] = @lineup.team.league.id
+      session[:team_id] = @lineup.team.id
     end
   end
   

@@ -1,4 +1,8 @@
 class LeaguesController < ApplicationController
+  before_action :allowed_user,      only: :show
+  before_action :correct_league,    only: [:edit, :update]
+  before_action :admin_user,        only: :destroy
+  
   def index
     @leagues = League.paginate(page: params[:page])
   end
@@ -64,5 +68,20 @@ class LeaguesController < ApplicationController
 
     def league_params
       params.require(:league).permit(:name, :num_teams, :num_divisions)
+    end
+    
+    # before filters
+    
+    # Confirms the correct league.
+    def correct_league
+      @league = League.find(params[:id])
+      redirect_to(@league) unless current_league?(@league)
+    end
+    
+    # confirm user is a part of the league
+    def allowed_user
+      @league = League.find(params[:id])
+      flash[:warning] = "Sorry, you do not have permission to view that"
+      redirect_back_or(leagues_url) unless current_user.leagues.include?(@league)
     end
 end

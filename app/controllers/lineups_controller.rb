@@ -44,9 +44,13 @@ class LineupsController < ApplicationController
     @lineup.total_score = @lineup.qb_score + @lineup.rb1_score + @lineup.rb2_score +
                           @lineup.wr1_score + @lineup.wr2_score
     @lineup.save
+    store_lineup
   end
   
   def new
+    @lineup = Lineup.new
+    @lineup.week = @nfl.get_players_stats({:position => "QB"})["week"]
+    
     @nfl = NFLApi.new
     @nfl_qbs = @nfl.get_players_stats({:position => "QB"})["players"]
     @nfl_qbs = @nfl_qbs.sort_by { |player| [player['weekProjectedPts'].to_f] }.reverse!
@@ -56,9 +60,6 @@ class LineupsController < ApplicationController
     @nfl_tes = @nfl.get_players_stats({:position => "TE"})["players"]
     @nfl_wrstes = @nfl_wrs + @nfl_tes
     @nfl_wrstes = @nfl_wrstes.sort_by { |player| [player['weekProjectedPts'].to_f] }.reverse!
-    @lineup = Lineup.new
-    @lineup.week = @nfl.get_players_stats({:position => "QB"})["week"]
-    #@lineup.season = @nfl.get_players_stats({:position => "QB"})["season"]
   end
   
   def create
@@ -110,7 +111,7 @@ class LineupsController < ApplicationController
     # Confirms the correct team.
     def correct_lineup
       @lineup = Lineup.find(params[:id])
-      redirect_to(@lineup) unless current_lineup?(@lineup) || current_user.admin?
+      redirect_to(@lineup) unless current_team?(@lineup.team)
     end
     
     def calc_score(player)

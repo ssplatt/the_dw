@@ -10,7 +10,6 @@ class TeamsController < ApplicationController
     @team = Team.find(params[:id])
     @league = @team.league
     store_team
-    store_league
   end
   
   def edit
@@ -62,6 +61,8 @@ class TeamsController < ApplicationController
     def team_params
       params.require(:team).permit(:name, :user_id, :team_id, :league_id, :division_id, :logo)
     end
+    
+    # before filters
     
     # Confirms the correct team.
     def correct_team
