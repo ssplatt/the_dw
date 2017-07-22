@@ -1,17 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyText
-  logo: MyText
-  is_commissioner: false
+  name: TeamOne
+  logo: logo1.jpg
+  is_commissioner: true
   league: one
-  user: one
-  division: one
+  user: michael
 
 two:
-  name: MyText
-  logo: MyText
+  name: TeamTwo
+  logo: logo2.jpg
   is_commissioner: false
   league: two
-  user: two
-  division: two
+  user: archer

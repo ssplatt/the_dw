@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161124181153) do
+ActiveRecord::Schema.define(version: 20170722194537) do
 
   create_table "divisions", force: :cascade do |t|
     t.text     "name"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20161124181153) do
     t.text     "name"
     t.integer  "num_teams",     default: 12
     t.integer  "num_divisions", default: 1
-    t.integer  "season",        default: 2016
+    t.integer  "season",        default: 2017
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.float    "pa_yd",         default: 0.04
@@ -57,6 +57,8 @@ ActiveRecord::Schema.define(version: 20161124181153) do
     t.float    "wr1_score",   default: 0.0
     t.float    "wr2_score",   default: 0.0
     t.float    "total_score", default: 0.0
+    t.integer  "division_id"
+    t.index ["division_id"], name: "index_lineups_on_division_id"
     t.index ["team_id"], name: "index_lineups_on_team_id"
   end
 
@@ -66,13 +68,11 @@ ActiveRecord::Schema.define(version: 20161124181153) do
     t.boolean  "is_commissioner",   default: false
     t.integer  "league_id"
     t.integer  "user_id"
-    t.integer  "division_id"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.string   "invite_digest"
     t.boolean  "invite_claimed",    default: false
     t.datetime "invite_claimed_at"
-    t.index ["division_id"], name: "index_teams_on_division_id"
     t.index ["league_id"], name: "index_teams_on_league_id"
     t.index ["name"], name: "index_teams_on_name"
     t.index ["user_id"], name: "index_teams_on_user_id"

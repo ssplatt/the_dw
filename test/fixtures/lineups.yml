@@ -1,11 +1,31 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+one:
+  qb_id: 1
+  rb1_id: 2
+  rb2_id: 3
+  wr1_id: 4
+  wr2_id: 5
+  week: 1
+  team: one
+  qb_score: 10
+  rb1_score: 10
+  rb2_score: 10
+  wr1_score: 10
+  wr2_score: 10
+  total_score: 50
+
+two:
+  qb_id: 1
+  rb1_id: 2
+  rb2_id: 3
+  wr1_id: 4
+  wr2_id: 5
+  week: 1
+  team: two
+  qb_score: 5
+  rb1_score: 5
+  rb2_score: 5
+  wr1_score: 5
+  wr2_score: 5
+  total_score: 25

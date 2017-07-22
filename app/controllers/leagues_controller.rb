@@ -31,8 +31,7 @@ class LeaguesController < ApplicationController
     @division = @league.divisions.first
     @user = User.find(current_user)
     @team = @league.teams.new(:is_commissioner => true,
-                              :user_id => @user.id,
-                              :division_id => @division.id)
+                              :user_id => @user.id)
     @team.random_name
     @team.seed_lineups
     @team.save
@@ -67,7 +66,7 @@ class LeaguesController < ApplicationController
   private
 
     def league_params
-      params.require(:league).permit(:name, :num_teams, :num_divisions)
+      params.require(:league).permit(:name, :num_teams, :num_divisions, :season)
     end
     
     # before filters

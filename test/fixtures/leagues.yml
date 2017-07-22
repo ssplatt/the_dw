@@ -1,11 +1,33 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyText
-  max_teams: 1
+  name: LeagueOne
+  num_teams: 8
   num_divisions: 1
+  pa_yd: 0.04
+  pa_td: 6
+  pa_int: -2
+  ru_yd: 0.1
+  ru_td: 6
+  re_yd: 0.1
+  rec: 0.5
+  re_td: 6
+  fum: -1
+  fuml: -1
+  tpc: 2
 
 two:
-  name: MyText
-  max_teams: 1
-  num_divisions: 1
+  name: LeagueTwo
+  num_teams: 10
+  num_divisions: 4
+  pa_yd: 0.04
+  pa_td: 6
+  pa_int: -2
+  ru_yd: 0.1
+  ru_td: 6
+  re_yd: 0.1
+  rec: 1
+  re_td: 6
+  fum: -1
+  fuml: -1
+  tpc: 2
