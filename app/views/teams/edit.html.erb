@@ -4,7 +4,6 @@
 <div class="row">
   <ul>
     <li>League: <%= @team.league.name %></li>
-    <li>Division: <%= @team.division.name %></li>
   </ul>
 </div>
 
@@ -19,9 +18,10 @@
       
       <%= f.submit "Save Changes", class: "btn btn-primary" %>
     <% end %>
-  </div>
-  <% if current_user.admin? || current_team? %>
+    
+    <% if current_user.admin? || current_team? %>
     <%= link_to "delete", @team, method: :delete,
-                                  data: { confirm: "You sure?" } %>
-  <% end %>
+            data: { confirm: "You sure?" }, class: "btn btn-danger" %>
+    <% end %>
+  </div>
 </div>

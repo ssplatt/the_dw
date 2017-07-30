@@ -5,6 +5,7 @@
       <h1>
         <%= @league.name %>
       </h1>
+      <h2>Season: <%= @league.season %></h2>
       <% if @team.is_commissioner? %>
       <div class=""><%= link_to "Edit", edit_league_path, class: "btn btn-primary" %></div>
       <% end %>
@@ -13,6 +14,7 @@
       <% if @league.teams.count < @league.num_teams %>
         <%= link_to "Invite more teams", invite_url(:league_id => @league.id), class: "btn btn-primary" %>
       <% end %>
+      <h3>Week: <%= current_week %></h3>
       <ul>
         <%= render @league.divisions %>
       </ul>
