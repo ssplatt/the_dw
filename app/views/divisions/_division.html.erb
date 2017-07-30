@@ -1,6 +1,6 @@
 <li>
   <strong><%= division.name %></strong>
   <ul>
-    <%= render partial: "divisions/lineup", collection: division.lineups %>
+    <%= render partial: "divisions/lineup", collection: division.lineups.where(:week => week) %>
   </ul>
 </li>

@@ -14,10 +14,12 @@
       <% if @league.teams.count < @league.num_teams %>
         <%= link_to "Invite more teams", invite_url(:league_id => @league.id), class: "btn btn-primary" %>
       <% end %>
-      <h3>Week: <%= current_week %></h3>
-      <ul>
-        <%= render @league.divisions %>
-      </ul>
+      <% (1..17).each do |week| %>
+        <h3>Week: <%= week %></h3>
+        <ul>
+          <%= render partial: 'divisions/division', collection: @league.divisions, locals: {week: week} %>
+        </ul>
+      <% end %>
     </section>
   </aside>
 </div>

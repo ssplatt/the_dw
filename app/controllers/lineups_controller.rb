@@ -81,6 +81,7 @@ class LineupsController < ApplicationController
   
   def edit
     @lineup = Lineup.find(params[:id])
+    @league = @lineup.team.league
     @nfl = NFLApi.new
     @nfl_qbs = @nfl.get_players_stats({:position => "QB", :week => @lineup.week, :season => @lineup.team.league.season})["players"]
     @nfl_qbs = @nfl_qbs.sort_by { |player| [player['weekProjectedPts'].to_f] }.reverse!
@@ -111,7 +112,7 @@ class LineupsController < ApplicationController
   private
 
     def lineup_params
-      params.require(:lineup).permit(:qb_id, :rb1_id, :rb2_id, :wr1_id, :wr2_id, :week)
+      params.require(:lineup).permit(:qb_id, :rb1_id, :rb2_id, :wr1_id, :wr2_id, :week, :division)
     end
     
     # Confirms the correct team.

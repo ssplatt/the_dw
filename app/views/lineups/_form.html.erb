@@ -4,6 +4,14 @@
   <%= f.label :week %>
   <%= f.select :week, (1..17), :disabled => disabled_weeks, class: 'form-control' %>
   
+  <%= f.label :division %>
+  <%= f.select :division, 
+        options_for_select(
+            @league.divisions.map{
+              |d| [ "#{d["name"]}", d["id"] ]
+            }
+          ), class: 'form-control' %>
+  
   <%= f.label :qb_id %>
   <%= f.select :qb_id, 
       options_for_select(
