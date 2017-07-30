@@ -42,7 +42,6 @@ class TeamsController < ApplicationController
   def create
     @team = Team.new(team_params)
     @team.random_name
-    @team.division = @team.league.divisions.first
 
     if @team.save
       @team.seed_lineups
@@ -59,7 +58,7 @@ class TeamsController < ApplicationController
   private
 
     def team_params
-      params.require(:team).permit(:name, :user_id, :team_id, :league_id, :division_id, :logo)
+      params.require(:team).permit(:name, :user_id, :team_id, :league_id, :logo)
     end
     
     # before filters

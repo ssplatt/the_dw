@@ -2,7 +2,7 @@ module LineupsHelper
   
   def disabled_weeks
     min = 1
-    max = current_week - 1
+    max = current_week.to_i - 1
     if (min < max)
       @disabled_weeks = (min..max)
     else

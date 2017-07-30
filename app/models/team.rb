@@ -1,7 +1,6 @@
 class Team < ApplicationRecord
   belongs_to :league
   belongs_to :user
-  belongs_to :division
   has_many :lineups
   
   # Returns the hash digest of the given string.

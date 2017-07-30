@@ -20,7 +20,7 @@
     </section>
   </aside>
   <div class="col-md-2">
-    <% if (@lineup.week >= current_week) || current_user.admin? || current_team.is_commissioner? %>
+    <% if (@lineup.week >= current_week.to_i ) || current_user.admin? || current_team.is_commissioner? %>
       <%= link_to "edit lineup", edit_lineup_url(@lineup), class: "btn btn-default" %>
     <% end %>
   </div>

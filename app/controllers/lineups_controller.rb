@@ -11,36 +11,42 @@ class LineupsController < ApplicationController
   def show
     @lineup = Lineup.find(params[:id])
     @nfl = NFLApi.new
-    if @lineup.qb_id?
+    
+    begin
       @qb = @nfl.get_players_details(@lineup.qb_id)["players"][0]
       @lineup.qb_score = calc_score(@qb)
-    else
+    rescue
       @qb = {}
     end
-    if @lineup.rb1_id?
+    
+    begin
       @rb1 = @nfl.get_players_details(@lineup.rb1_id)["players"][0]
       @lineup.rb1_score = calc_score(@rb1)
-    else
+    rescue
       @rb1 = {}
     end
-    if @lineup.rb2_id?
+    
+    begin
       @rb2 = @nfl.get_players_details(@lineup.rb2_id)["players"][0]
       @lineup.rb2_score = calc_score(@rb2)
-    else
+    rescue
       @rb2 = {}
     end
-    if @lineup.wr1_id?
+    
+    begin
       @wr1 = @nfl.get_players_details(@lineup.wr1_id)["players"][0]
       @lineup.wr1_score = calc_score(@wr1)
-    else
+    rescue
       @wr1 = {}
     end
-    if @lineup.wr2_id?
+    
+    begin
       @wr2 = @nfl.get_players_details(@lineup.wr2_id)["players"][0]
       @lineup.wr2_score = calc_score(@wr2)
-    else
+    rescue
       @wr2 = {}
     end
+    
     @lineup.total_score = @lineup.qb_score + @lineup.rb1_score + @lineup.rb2_score +
                           @lineup.wr1_score + @lineup.wr2_score
     @lineup.save
