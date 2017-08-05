@@ -11,37 +11,38 @@ class LineupsController < ApplicationController
   def show
     @lineup = Lineup.find(params[:id])
     @nfl = NFLApi.new
+    @weekstats = @nfl.get_players_stats({:statType => "weekStats",:season => @lineup.team.league.season, :week => @lineup.week})["players"]
     
     begin
-      @qb = @nfl.get_players_details(@lineup.qb_id)["players"][0]
+      @qb = @weekstats.select{ |h| h["id"] == @lineup.qb_id.to_s }[0]
       @lineup.qb_score = calc_score(@qb)
     rescue
       @qb = {}
     end
     
     begin
-      @rb1 = @nfl.get_players_details(@lineup.rb1_id)["players"][0]
+      @rb1 = @weekstats.select{ |h| h["id"] == @lineup.rb1_id.to_s }[0]
       @lineup.rb1_score = calc_score(@rb1)
     rescue
       @rb1 = {}
     end
     
     begin
-      @rb2 = @nfl.get_players_details(@lineup.rb2_id)["players"][0]
+      @rb2 = @weekstats.select{ |h| h["id"] == @lineup.rb2_id.to_s }[0]
       @lineup.rb2_score = calc_score(@rb2)
     rescue
       @rb2 = {}
     end
     
     begin
-      @wr1 = @nfl.get_players_details(@lineup.wr1_id)["players"][0]
+      @wr1 = @weekstats.select{ |h| h["id"] == @lineup.wr1_id.to_s }[0]
       @lineup.wr1_score = calc_score(@wr1)
     rescue
       @wr1 = {}
     end
     
     begin
-      @wr2 = @nfl.get_players_details(@lineup.wr2_id)["players"][0]
+      @wr2 = @weekstats.select{ |h| h["id"] == @lineup.wr2_id.to_s }[0]
       @lineup.wr2_score = calc_score(@wr2)
     rescue
       @wr2 = {}
@@ -112,7 +113,7 @@ class LineupsController < ApplicationController
   private
 
     def lineup_params
-      params.require(:lineup).permit(:qb_id, :rb1_id, :rb2_id, :wr1_id, :wr2_id, :week, :division)
+      params.require(:lineup).permit(:qb_id, :rb1_id, :rb2_id, :wr1_id, :wr2_id, :week, :division_id)
     end
     
     # Confirms the correct team.
@@ -124,7 +125,7 @@ class LineupsController < ApplicationController
     def calc_score(player)
       score = 0
       
-      player["weeks"][@lineup.week-1]["stats"].each do |k,v|
+      player["stats"].each do |k,v|
         case k
         when "5"
           score += v.to_i * @lineup.team.league.pa_yd
@@ -151,7 +152,7 @@ class LineupsController < ApplicationController
         end
       end
       
-      return score
+      return score.round(2)
     end
   
 end
