@@ -13,43 +13,49 @@ class LineupsController < ApplicationController
     @nfl = NFLApi.new
     @weekstats = @nfl.get_players_stats({:statType => "weekStats",:season => @lineup.team.league.season, :week => @lineup.week})["players"]
     
+    @qb = @lineup.qb_id ? @nfl.get_players_details(@lineup.qb_id)["players"][0] : {}
+    @rb1 = @lineup.rb1_id ? @nfl.get_players_details(@lineup.rb1_id)["players"][0] : {}
+    @rb2 = @lineup.rb2_id ? @nfl.get_players_details(@lineup.rb2_id)["players"][0] : {}
+    @wr1 = @lineup.wr1_id ? @nfl.get_players_details(@lineup.wr1_id)["players"][0] : {}
+    @wr2 = @lineup.wr2_id ? @nfl.get_players_details(@lineup.wr2_id)["players"][0] : {}
+    
     begin
-      @qb = @weekstats.select{ |h| h["id"] == @lineup.qb_id.to_s }[0]
-      @lineup.qb_score = calc_score(@qb)
+      @qb_stats = @weekstats.select{ |h| h["id"] == @lineup.qb_id.to_s }[0]
+      @lineup.qb_score = calc_score(@qb_stats)
     rescue
-      @qb = {}
+      @lineup.qb_score = 0
     end
     
     begin
-      @rb1 = @weekstats.select{ |h| h["id"] == @lineup.rb1_id.to_s }[0]
-      @lineup.rb1_score = calc_score(@rb1)
+      @rb1_stats = @weekstats.select{ |h| h["id"] == @lineup.rb1_id.to_s }[0]
+      @lineup.rb1_score = calc_score(@rb1_stats)
     rescue
-      @rb1 = {}
+      @lineup.qb_score = 0
     end
     
     begin
-      @rb2 = @weekstats.select{ |h| h["id"] == @lineup.rb2_id.to_s }[0]
-      @lineup.rb2_score = calc_score(@rb2)
+      @rb2_stats = @weekstats.select{ |h| h["id"] == @lineup.rb2_id.to_s }[0]
+      @lineup.rb2_score = calc_score(@rb2_stats)
     rescue
-      @rb2 = {}
+      @lineup.rb2_score = 0
     end
     
     begin
-      @wr1 = @weekstats.select{ |h| h["id"] == @lineup.wr1_id.to_s }[0]
-      @lineup.wr1_score = calc_score(@wr1)
+      @wr1_stats = @weekstats.select{ |h| h["id"] == @lineup.wr1_id.to_s }[0]
+      @lineup.wr1_score = calc_score(@wr1_stats)
     rescue
-      @wr1 = {}
+      @lineup.wr1_score  = 0
     end
     
     begin
-      @wr2 = @weekstats.select{ |h| h["id"] == @lineup.wr2_id.to_s }[0]
-      @lineup.wr2_score = calc_score(@wr2)
+      @wr2_stats = @weekstats.select{ |h| h["id"] == @lineup.wr2_id.to_s }[0]
+      @lineup.wr2_score = calc_score(@wr2_stats)
     rescue
-      @wr2 = {}
+      @lineup.wr2_score = 0
     end
     
-    @lineup.total_score = @lineup.qb_score + @lineup.rb1_score + @lineup.rb2_score +
-                          @lineup.wr1_score + @lineup.wr2_score
+    @lineup.total_score = (@lineup.qb_score + @lineup.rb1_score + @lineup.rb2_score +
+                          @lineup.wr1_score + @lineup.wr2_score).round(2)
     @lineup.save
     store_lineup
   end

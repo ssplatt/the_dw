@@ -19,9 +19,11 @@ class NFLApi
     end
   end
   
-  def get_players_details(options={})
+  def get_players_details(id)
     #player details
     #http://api.fantasy.nfl.com/v1/docs/service?serviceName=playersDetails
+    # playerId
+    options = { :playerId => id.to_s }
     Rails.cache.fetch(["/players/details", { query: options }], :expires => 1.hour) do
       self.class.get("/players/details", { query: options })
     end
