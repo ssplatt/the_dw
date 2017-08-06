@@ -24,3 +24,7 @@ module Workspace
     config.active_record.raise_in_transactional_callbacks = true
   end
 end
+
+Raven.configure do |config|
+  config.dsn = 'https://405d664555e4489ea45af0c66129a6a1:7b1aabad456c4735bd8ea2b4511cf83f@sentry.io/200247'
+end

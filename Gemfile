@@ -40,6 +40,7 @@ gem 'httparty'
 gem 'dalli'
 
 gem 'newrelic_rpm'
+gem "sentry-raven"
 
 # Use Capistrano for deployment
 gem 'capistrano-rails', group: :development
