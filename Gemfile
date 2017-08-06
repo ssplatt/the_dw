@@ -39,6 +39,8 @@ gem 'twitter-typeahead-rails'
 gem 'httparty'
 gem 'dalli'
 
+gem 'newrelic_rpm'
+
 # Use Capistrano for deployment
 gem 'capistrano-rails', group: :development
 
