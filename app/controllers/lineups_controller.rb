@@ -90,12 +90,12 @@ class LineupsController < ApplicationController
     @lineup = Lineup.find(params[:id])
     @league = @lineup.team.league
     @nfl = NFLApi.new
-    @nfl_qbs = @nfl.get_players_stats({:position => "QB", :week => @lineup.week, :season => @lineup.team.league.season})["players"]
+    @nfl_qbs = @nfl.get_players_stats({:position => "QB", :week => @lineup.week, :season => @lineup.team.league.season, :statType => "weekProjectedStats"})["players"]
     @nfl_qbs = @nfl_qbs.sort_by { |player| [player['weekProjectedPts'].to_f] }.reverse!
-    @nfl_rbs = @nfl.get_players_stats({:position => "RB", :week => @lineup.week, :season => @lineup.team.league.season})["players"]
+    @nfl_rbs = @nfl.get_players_stats({:position => "RB", :week => @lineup.week, :season => @lineup.team.league.season, :statType => "weekProjectedStats"})["players"]
     @nfl_rbs = @nfl_rbs.sort_by { |player| [player['weekProjectedPts'].to_f] }.reverse!
-    @nfl_wrs = @nfl.get_players_stats({:position => "WR", :week => @lineup.week, :season => @lineup.team.league.season})["players"]
-    @nfl_tes = @nfl.get_players_stats({:position => "TE", :week => @lineup.week, :season => @lineup.team.league.season})["players"]
+    @nfl_wrs = @nfl.get_players_stats({:position => "WR", :week => @lineup.week, :season => @lineup.team.league.season, :statType => "weekProjectedStats"})["players"]
+    @nfl_tes = @nfl.get_players_stats({:position => "TE", :week => @lineup.week, :season => @lineup.team.league.season, :statType => "weekProjectedStats"})["players"]
     @nfl_wrstes = @nfl_wrs + @nfl_tes
     @nfl_wrstes = @nfl_wrstes.sort_by { |player| [player['weekProjectedPts'].to_f] }.reverse!
   end
