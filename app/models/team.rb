@@ -30,6 +30,7 @@ class Team < ApplicationRecord
       if not self.lineups.find_by(week: week)
         lu = self.lineups.new
         lu.week = week
+        lu.division = self.league.divisions.first
         lu.save
       end
     end
