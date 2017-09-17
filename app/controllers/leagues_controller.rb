@@ -66,7 +66,7 @@ class LeaguesController < ApplicationController
   private
 
     def league_params
-      params.require(:league).permit(:name, :num_teams, :num_divisions, :season)
+      params.require(:league).permit(:name, :num_teams, :num_divisions, :season, :pa_yd, :pa_td, :pa_int, :ru_yd, :ru_td, :re_yd, :re_td, :rec, :fum, :fuml, :tpc)
     end
     
     # before filters
