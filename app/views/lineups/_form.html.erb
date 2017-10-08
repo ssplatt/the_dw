@@ -9,7 +9,8 @@
         options_for_select(
             @league.divisions.map{
               |d| [ "#{d["name"]}", d["id"] ]
-            }
+            },
+            selected: f.object.division_id,
           ), class: 'form-control' %>
   
   <%= f.label :qb_id %>
