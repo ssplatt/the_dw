@@ -67,11 +67,17 @@ class UsersController < ApplicationController
     # Confirms the correct user.
     def correct_user
       @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
+      unless current_user?(@user) || current_user.admin?
+        flash[:danger] = "You do not have permission to do that."
+        redirect_to(root_url)
+      end
     end
     
     # Confirms an admin user.
     def admin_user
-      redirect_to(root_url) unless current_user.admin?
+      unless current_user.admin?
+        flash[:danger] = "You do not have admin permissions."
+        redirect_to(root_url)
+      end
     end
 end

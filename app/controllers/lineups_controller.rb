@@ -125,7 +125,7 @@ class LineupsController < ApplicationController
     # Confirms the correct team.
     def correct_lineup
       @lineup = Lineup.find(params[:id])
-      redirect_to(@lineup) unless current_team?(@lineup.team)
+      redirect_to(@lineup) unless current_team?(@lineup.team) || current_user.admin? || current_team.is_commissioner?
     end
     
     def calc_score(player)
