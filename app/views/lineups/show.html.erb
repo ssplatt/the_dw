@@ -11,17 +11,42 @@
       </ul>
       <ul>
         <h3>Lineup:</h3>
-        <li>QB: <%= @qb["name"] %> (<%= @qb["teamAbbr"] %>) - <%= @lineup.qb_score %></li>
-        <li>RB: <%= @rb1["name"] %> (<%= @rb1["teamAbbr"] %>) - <%= @lineup.rb1_score %></li>
-        <li>RB: <%= @rb2["name"] %> (<%= @rb2["teamAbbr"] %>) - <%= @lineup.rb2_score %></li>
-        <li>WR/TE: <%= @wr1["name"] %> (<%= @wr1["teamAbbr"] %>) - <%= @lineup.wr1_score %></li>
-        <li>WR/TE: <%= @wr2["name"] %> (<%= @wr2["teamAbbr"] %>) - <%= @lineup.wr2_score %></li>
+        <li>
+          QB: 
+          <% if locked?(@qb_stats) || current_user.admin? || current_team.is_commissioner? %>
+            <%= @qb["name"] %> (<%= @qb["teamAbbr"] %>) - <%= @lineup.qb_score %>
+          <% end %>
+        </li>
+        <li>
+          RB:
+          <% if locked?(@rb1_stats) || current_user.admin? || current_team.is_commissioner? %>
+            <%= @rb1["name"] %> (<%= @rb1["teamAbbr"] %>) - <%= @lineup.rb1_score %>
+          <% end %>
+        </li>
+        <li>
+          RB:
+          <% if locked?(@rb2_stats) || current_user.admin? || current_team.is_commissioner? %>
+            <%= @rb2["name"] %> (<%= @rb2["teamAbbr"] %>) - <%= @lineup.rb2_score %>
+          <% end %>
+        </li>
+        <li>
+          WR/TE:
+          <% if locked?(@wr1_stats) || current_user.admin? || current_team.is_commissioner? %>
+            <%= @wr1["name"] %> (<%= @wr1["teamAbbr"] %>) - <%= @lineup.wr1_score %>
+          <% end %>
+        </li>
+        <li>
+          WR/TE:
+          <% if locked?(@wr2_stats) || current_user.admin? || current_team.is_commissioner? %>
+            <%= @wr2["name"] %> (<%= @wr2["teamAbbr"] %>) - <%= @lineup.wr2_score %>
+          <% end %>
+        </li>
         <li>Total: <%= @lineup.total_score %></li>
       </ul>
     </section>
   </aside>
   <div class="col-md-2">
-    <% if (@lineup.week >= current_week.to_i ) || current_user.admin? || current_team.is_commissioner? %>
+    <% if (@lineup.week >= current_week.to_i) || current_user.admin? || current_team.is_commissioner? %>
       <%= link_to "edit lineup", edit_lineup_url(@lineup), class: "btn btn-default" %>
     <% end %>
   </div>

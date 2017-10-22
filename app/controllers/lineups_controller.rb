@@ -19,40 +19,20 @@ class LineupsController < ApplicationController
     @wr1 = @lineup.wr1_id ? @nfl.get_players_details(@lineup.wr1_id)["players"][0] : {}
     @wr2 = @lineup.wr2_id ? @nfl.get_players_details(@lineup.wr2_id)["players"][0] : {}
     
-    begin
-      @qb_stats = @weekstats.select{ |h| h["id"] == @lineup.qb_id.to_s }[0]
-      @lineup.qb_score = calc_score(@qb_stats)
-    rescue
-      @lineup.qb_score = 0
-    end
+    @qb_stats = @weekstats.select{ |h| h["id"] == @lineup.qb_id.to_s }[0] || {}
+    @lineup.qb_score = @qb_stats && @qb_stats.length > 0 ? calc_score(@qb_stats) : 0
     
-    begin
-      @rb1_stats = @weekstats.select{ |h| h["id"] == @lineup.rb1_id.to_s }[0]
-      @lineup.rb1_score = calc_score(@rb1_stats)
-    rescue
-      @lineup.qb_score = 0
-    end
+    @rb1_stats = @weekstats.select{ |h| h["id"] == @lineup.rb1_id.to_s }[0] || {}
+    @lineup.rb1_score = @rb1_stats && @rb1_stats.length > 0 ? calc_score(@rb1_stats) : 0
     
-    begin
-      @rb2_stats = @weekstats.select{ |h| h["id"] == @lineup.rb2_id.to_s }[0]
-      @lineup.rb2_score = calc_score(@rb2_stats)
-    rescue
-      @lineup.rb2_score = 0
-    end
+    @rb2_stats = @weekstats.select{ |h| h["id"] == @lineup.rb2_id.to_s }[0] || {}
+    @lineup.rb2_score = @rb2_stats && @rb2_stats.length > 0 ? calc_score(@rb2_stats) : 0
     
-    begin
-      @wr1_stats = @weekstats.select{ |h| h["id"] == @lineup.wr1_id.to_s }[0]
-      @lineup.wr1_score = calc_score(@wr1_stats)
-    rescue
-      @lineup.wr1_score  = 0
-    end
+    @wr1_stats = @weekstats.select{ |h| h["id"] == @lineup.wr1_id.to_s }[0] || {}
+    @lineup.wr1_score = @wr1_stat && @wr1_stats.length > 0 ? calc_score(@wr1_stats) : 0
     
-    begin
-      @wr2_stats = @weekstats.select{ |h| h["id"] == @lineup.wr2_id.to_s }[0]
-      @lineup.wr2_score = calc_score(@wr2_stats)
-    rescue
-      @lineup.wr2_score = 0
-    end
+    @wr2_stats = @weekstats.select{ |h| h["id"] == @lineup.wr2_id.to_s }[0] || {}
+    @lineup.wr2_score = @wr2_stats && @wr2_stats.length > 0 ? calc_score(@wr2_stats) : 0
     
     @lineup.total_score = (@lineup.qb_score + @lineup.rb1_score + @lineup.rb2_score +
                           @lineup.wr1_score + @lineup.wr2_score).round(2)
@@ -128,10 +108,10 @@ class LineupsController < ApplicationController
       redirect_to(@lineup) unless current_team?(@lineup.team) || current_user.admin? || current_team.is_commissioner?
     end
     
-    def calc_score(player)
+    def calc_score(player_week_stats)
       score = 0
       
-      player["stats"].each do |k,v|
+      player_week_stats["stats"].each do |k,v|
         case k
         when "5"
           score += v.to_i * @lineup.team.league.pa_yd

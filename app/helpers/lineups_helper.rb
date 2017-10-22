@@ -33,4 +33,12 @@ module LineupsHelper
     end
     return @selected_players
   end
+  
+  def locked?(player_week_stats)
+    if player_week_stats["stats"]
+      return player_week_stats["stats"]["1"] == "1" ? true : false
+    else
+      return false
+    end
+  end
 end
