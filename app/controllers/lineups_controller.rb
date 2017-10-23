@@ -20,19 +20,19 @@ class LineupsController < ApplicationController
     @wr2 = @lineup.wr2_id ? @nfl.get_players_details(@lineup.wr2_id)["players"][0] : {}
     
     @qb_stats = @weekstats.select{ |h| h["id"] == @lineup.qb_id.to_s }[0] || {}
-    @lineup.qb_score = @qb_stats && @qb_stats.length > 0 ? calc_score(@qb_stats) : 0
+    @lineup.qb_score = @qb_stats.length > 0 ? calc_score(@qb_stats) : 0
     
     @rb1_stats = @weekstats.select{ |h| h["id"] == @lineup.rb1_id.to_s }[0] || {}
-    @lineup.rb1_score = @rb1_stats && @rb1_stats.length > 0 ? calc_score(@rb1_stats) : 0
+    @lineup.rb1_score = @rb1_stats.length > 0 ? calc_score(@rb1_stats) : 0
     
     @rb2_stats = @weekstats.select{ |h| h["id"] == @lineup.rb2_id.to_s }[0] || {}
-    @lineup.rb2_score = @rb2_stats && @rb2_stats.length > 0 ? calc_score(@rb2_stats) : 0
+    @lineup.rb2_score = @rb2_stats.length > 0 ? calc_score(@rb2_stats) : 0
     
     @wr1_stats = @weekstats.select{ |h| h["id"] == @lineup.wr1_id.to_s }[0] || {}
-    @lineup.wr1_score = @wr1_stat && @wr1_stats.length > 0 ? calc_score(@wr1_stats) : 0
+    @lineup.wr1_score = @wr1_stats.length > 0 ? calc_score(@wr1_stats) : 0
     
     @wr2_stats = @weekstats.select{ |h| h["id"] == @lineup.wr2_id.to_s }[0] || {}
-    @lineup.wr2_score = @wr2_stats && @wr2_stats.length > 0 ? calc_score(@wr2_stats) : 0
+    @lineup.wr2_score = @wr2_stats.length > 0 ? calc_score(@wr2_stats) : 0
     
     @lineup.total_score = (@lineup.qb_score + @lineup.rb1_score + @lineup.rb2_score +
                           @lineup.wr1_score + @lineup.wr2_score).round(2)
