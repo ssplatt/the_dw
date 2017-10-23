@@ -1,6 +1,6 @@
 <li>
   <strong><%= division.name %></strong>
   <ul>
-    <%= render partial: "divisions/lineup", collection: division.lineups.where(:week => week) %>
+    <%= render partial: "divisions/lineup", collection: division.lineups.where(:week => week).order("total_score DESC") %>
   </ul>
 </li>
