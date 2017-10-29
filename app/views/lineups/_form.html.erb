@@ -23,12 +23,12 @@
         selected: f.object.qb_id,
         disabled: @disabled_players
       ),
-      {},
+      { prompt: "Select a QB" },
       { 
-        prompt: "Select a QB",
         class: 'form-control',
         disabled: true 
-      } %>
+      }
+    %>
   <% else %>
     <%= f.select :qb_id, 
       options_for_select(
@@ -38,11 +38,9 @@
         selected: f.object.qb_id,
         disabled: @disabled_players
       ),
-      {},
-      {
-        prompt: "Select a QB",
-        class: 'form-control'
-      }%>
+      { prompt: "Select a QB" },
+      { class: 'form-control' } 
+    %>
   <% end %>
   
   <%= f.label :rb1_id %>
@@ -55,12 +53,12 @@
         selected: f.object.rb1_id,
         disabled: @disabled_players
       ),
-      {},
+      { prompt: "Select a RB" },
       {
-        prompt: "Select a RB", 
         class: 'form-control',
         disabled: true
-      }%>
+      }
+    %>
   <% else %>
     <%= f.select :rb1_id, 
       options_for_select(
@@ -70,11 +68,9 @@
         selected: f.object.rb1_id,
         disabled: @disabled_players
       ),
-      {},
-      {
-        prompt: "Select a RB", 
-        class: 'form-control'
-      }%>
+      { prompt: "Select a RB" },
+      { class: 'form-control' }
+    %>
   <% end %>
   
   <%= f.label :rb2_id %>
@@ -87,12 +83,12 @@
         selected: f.object.rb2_id,
         disabled: @disabled_players
       ),
-      {},
+      { prompt: "Select a RB" },
       {
-        prompt: "Select a RB", 
         class: 'form-control',
         disabled: true
-      }%>
+      }
+    %>
   <% else %>
     <%= f.select :rb2_id, 
       options_for_select(
@@ -102,11 +98,9 @@
         selected: f.object.rb2_id,
         disabled: @disabled_players
       ),
-      {},
-      {
-        prompt: "Select a RB", 
-        class: 'form-control'
-      }%>
+      { prompt: "Select a RB" },
+      { class: 'form-control' }
+    %>
   <% end %>
   
   <%= f.label :wr1_id %>
@@ -119,12 +113,12 @@
       selected: f.object.wr1_id,
       disabled: @disabled_players
       ),
-      {},
+      { prompt: "Select a WR/TE" },
       {
-        prompt: "Select a WR/TE", 
         class: 'form-control',
         disabled: true
-      }%>
+      }
+    %>
   <% else %>
     <%= f.select :wr1_id, 
       options_for_select(
@@ -134,11 +128,9 @@
       selected: f.object.wr1_id,
       disabled: @disabled_players
       ),
-      {},
-      {
-        prompt: "Select a WR/TE", 
-        class: 'form-control'
-      }%>
+      { prompt: "Select a WR/TE" },
+      { class: 'form-control' }
+    %>
   <% end %>
   
   <%= f.label :wr2_id %>
@@ -151,12 +143,12 @@
         selected: f.object.wr2_id,
         disabled: @disabled_players
       ),
-      {},
+      { prompt: "Select a WR/TE" },
       {
-        prompt: "Select a WR/TE", 
         class: 'form-control',
         disabled: true
-      }%>
+      }
+    %>
   <% else %>
     <%= f.select :wr2_id, 
       options_for_select(
@@ -166,11 +158,9 @@
         selected: f.object.wr2_id,
         disabled: @disabled_players
       ),
-      {},
-      {
-        prompt: "Select a WR/TE", 
-        class: 'form-control'
-      }%>
+      { prompt: "Select a WR/TE" },
+      { class: 'form-control' }
+    %>
   <% end %>
   
   <%= f.submit "Save", class: "btn btn-primary" %>
