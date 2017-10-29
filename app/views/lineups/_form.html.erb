@@ -11,10 +11,11 @@
               |d| [ "#{d["name"]}", d["id"] ]
             },
             selected: f.object.division_id,
-          ), class: 'form-control' %>
+          ), {}, class: 'form-control' %>
   
   <%= f.label :qb_id %>
-  <%= f.select :qb_id, 
+  <% if @locked_players.include? f.object.qb_id.to_s %>
+    <%= f.select :qb_id, 
       options_for_select(
         @nfl_qbs.map{ 
           |p| [ "#{p["name"]} (#{p["teamAbbr"]}) (projected #{p["weekProjectedPts"]})", p["id"] ]
@@ -22,23 +23,63 @@
         selected: f.object.qb_id,
         disabled: @disabled_players
       ),
-      prompt: "Select a QB", 
-      class: 'form-control' %>
+      {},
+      { 
+        prompt: "Select a QB",
+        class: 'form-control',
+        disabled: true 
+      } %>
+  <% else %>
+    <%= f.select :qb_id, 
+      options_for_select(
+        @nfl_qbs.map{ 
+          |p| [ "#{p["name"]} (#{p["teamAbbr"]}) (projected #{p["weekProjectedPts"]})", p["id"] ]
+        },
+        selected: f.object.qb_id,
+        disabled: @disabled_players
+      ),
+      {},
+      {
+        prompt: "Select a QB",
+        class: 'form-control'
+      }%>
+  <% end %>
   
   <%= f.label :rb1_id %>
-  <%= f.select :rb1_id, 
+  <% if @locked_players.include? f.object.rb1_id.to_s %>
+    <%= f.select :rb1_id, 
       options_for_select(
         @nfl_rbs.map{ 
           |p| [ "#{p["name"]} (#{p["teamAbbr"]}) (projected #{p["weekProjectedPts"]})", p["id"] ]
         },
+        selected: f.object.rb1_id,
         disabled: @disabled_players
       ),
-      selected: f.object.rb1_id,
-      prompt: "Select a RB", 
-      class: 'form-control' %>
+      {},
+      {
+        prompt: "Select a RB", 
+        class: 'form-control',
+        disabled: true
+      }%>
+  <% else %>
+    <%= f.select :rb1_id, 
+      options_for_select(
+        @nfl_rbs.map{ 
+          |p| [ "#{p["name"]} (#{p["teamAbbr"]}) (projected #{p["weekProjectedPts"]})", p["id"] ]
+        },
+        selected: f.object.rb1_id,
+        disabled: @disabled_players
+      ),
+      {},
+      {
+        prompt: "Select a RB", 
+        class: 'form-control'
+      }%>
+  <% end %>
   
   <%= f.label :rb2_id %>
-  <%= f.select :rb2_id, 
+  <% if @locked_players.include? f.object.rb2_id.to_s %>
+    <%= f.select :rb2_id, 
       options_for_select(
         @nfl_rbs.map{ 
           |p| [ "#{p["name"]} (#{p["teamAbbr"]}) (projected #{p["weekProjectedPts"]})", p["id"] ]
@@ -46,11 +87,31 @@
         selected: f.object.rb2_id,
         disabled: @disabled_players
       ),
-      prompt: "Select a RB", 
-      class: 'form-control' %>
+      {},
+      {
+        prompt: "Select a RB", 
+        class: 'form-control',
+        disabled: true
+      }%>
+  <% else %>
+    <%= f.select :rb2_id, 
+      options_for_select(
+        @nfl_rbs.map{ 
+          |p| [ "#{p["name"]} (#{p["teamAbbr"]}) (projected #{p["weekProjectedPts"]})", p["id"] ]
+        },
+        selected: f.object.rb2_id,
+        disabled: @disabled_players
+      ),
+      {},
+      {
+        prompt: "Select a RB", 
+        class: 'form-control'
+      }%>
+  <% end %>
   
   <%= f.label :wr1_id %>
-  <%= f.select :wr1_id, 
+  <% if @locked_players.include? f.object.wr1_id.to_s %>
+    <%= f.select :wr1_id, 
       options_for_select(
         @nfl_wrstes.map{ 
           |p| [ "#{p["name"]} (#{p["teamAbbr"]}) (projected #{p["weekProjectedPts"]})", p["id"] ] 
@@ -58,20 +119,59 @@
       selected: f.object.wr1_id,
       disabled: @disabled_players
       ),
-      prompt: "Select a WR/TE", 
-      class: 'form-control' %>
+      {},
+      {
+        prompt: "Select a WR/TE", 
+        class: 'form-control',
+        disabled: true
+      }%>
+  <% else %>
+    <%= f.select :wr1_id, 
+      options_for_select(
+        @nfl_wrstes.map{ 
+          |p| [ "#{p["name"]} (#{p["teamAbbr"]}) (projected #{p["weekProjectedPts"]})", p["id"] ] 
+        },
+      selected: f.object.wr1_id,
+      disabled: @disabled_players
+      ),
+      {},
+      {
+        prompt: "Select a WR/TE", 
+        class: 'form-control'
+      }%>
+  <% end %>
   
   <%= f.label :wr2_id %>
-  <%= f.select :wr2_id, 
+  <% if @locked_players.include? f.object.wr2_id.to_s %>
+    <%= f.select :wr2_id, 
       options_for_select(
         @nfl_wrstes.map{ 
           |p| [ "#{p["name"]} (#{p["teamAbbr"]}) (projected #{p["weekProjectedPts"]})", p["id"] ]
         },
         selected: f.object.wr2_id,
         disabled: @disabled_players
-      ), 
-      prompt: "Select a WR/TE", 
-      class: 'form-control' %>
+      ),
+      {},
+      {
+        prompt: "Select a WR/TE", 
+        class: 'form-control',
+        disabled: true
+      }%>
+  <% else %>
+    <%= f.select :wr2_id, 
+      options_for_select(
+        @nfl_wrstes.map{ 
+          |p| [ "#{p["name"]} (#{p["teamAbbr"]}) (projected #{p["weekProjectedPts"]})", p["id"] ]
+        },
+        selected: f.object.wr2_id,
+        disabled: @disabled_players
+      ),
+      {},
+      {
+        prompt: "Select a WR/TE", 
+        class: 'form-control'
+      }%>
+  <% end %>
   
   <%= f.submit "Save", class: "btn btn-primary" %>
 <% end %>
