@@ -2,7 +2,7 @@
   <%= render 'shared/lineup_error_messages' %>
   
   <%= f.label :week %>
-  <%= f.select :week, (1..17), :disabled => disabled_weeks, class: 'form-control' %>
+  <%= f.select :week, (1..17), { :disabled => disabled_weeks }, { class: 'form-control' } %>
   
   <%= f.label :division %>
   <%= f.select :division_id, 
@@ -11,7 +11,8 @@
               |d| [ "#{d["name"]}", d["id"] ]
             },
             selected: f.object.division_id,
-          ), {}, class: 'form-control' %>
+          ), {}, class: 'form-control'
+  %>
   
   <%= f.label :qb_id %>
   <% if @locked_players.include? f.object.qb_id.to_s %>
