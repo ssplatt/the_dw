@@ -78,6 +78,14 @@ class LineupsController < ApplicationController
     @nfl_tes = @nfl.get_players_stats({:position => "TE", :week => @lineup.week, :season => @lineup.team.league.season, :statType => "weekProjectedStats"})["players"]
     @nfl_wrstes = @nfl_wrs + @nfl_tes
     @nfl_wrstes = @nfl_wrstes.sort_by { |player| [player['weekProjectedPts'].to_f] }.reverse!
+    
+    @weekstats = @nfl.get_players_stats({:statType => "weekStats",:season => @lineup.team.league.season, :week => @lineup.week})["players"]
+    @selected_players = selected_players
+    @disabled_players = []
+    @weekstats.each do |p|
+      @disabled_players.push(p["id"])
+    end
+    @disabled_players = @disabled_players + @selected_players
   end
   
   def update
@@ -139,6 +147,29 @@ class LineupsController < ApplicationController
       end
       
       return score.round(2)
+    end
+    
+    def selected_players
+      @selected_players = []
+      lus = current_team.lineups.where.not(id: @lineup.id)
+      lus.each do |p|
+        if p.qb_id
+          @selected_players.push(p.qb_id)
+        end
+        if p.rb1_id
+          @selected_players.push(p.rb1_id)
+        end
+        if p.rb2_id
+          @selected_players.push(p.rb2_id)
+        end
+        if p.wr1_id
+          @selected_players.push(p.wr1_id)
+        end
+        if p.wr2_id
+          @selected_players.push(p.wr2_id)
+        end
+      end
+      return @selected_players
     end
   
 end

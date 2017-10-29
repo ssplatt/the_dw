@@ -20,7 +20,7 @@
           |p| [ "#{p["name"]} (#{p["teamAbbr"]}) (projected #{p["weekProjectedPts"]})", p["id"] ]
         },
         selected: f.object.qb_id,
-        disabled: selected_players
+        disabled: @disabled_players
       ),
       prompt: "Select a QB", 
       class: 'form-control' %>
@@ -31,7 +31,7 @@
         @nfl_rbs.map{ 
           |p| [ "#{p["name"]} (#{p["teamAbbr"]}) (projected #{p["weekProjectedPts"]})", p["id"] ]
         },
-        disabled: selected_players
+        disabled: @disabled_players
       ),
       selected: f.object.rb1_id,
       prompt: "Select a RB", 
@@ -44,7 +44,7 @@
           |p| [ "#{p["name"]} (#{p["teamAbbr"]}) (projected #{p["weekProjectedPts"]})", p["id"] ]
         },
         selected: f.object.rb2_id,
-        disabled: selected_players
+        disabled: @disabled_players
       ),
       prompt: "Select a RB", 
       class: 'form-control' %>
@@ -56,7 +56,7 @@
           |p| [ "#{p["name"]} (#{p["teamAbbr"]}) (projected #{p["weekProjectedPts"]})", p["id"] ] 
         },
       selected: f.object.wr1_id,
-      disabled: selected_players
+      disabled: @disabled_players
       ),
       prompt: "Select a WR/TE", 
       class: 'form-control' %>
@@ -68,7 +68,7 @@
           |p| [ "#{p["name"]} (#{p["teamAbbr"]}) (projected #{p["weekProjectedPts"]})", p["id"] ]
         },
         selected: f.object.wr2_id,
-        disabled: selected_players
+        disabled: @disabled_players
       ), 
       prompt: "Select a WR/TE", 
       class: 'form-control' %>
