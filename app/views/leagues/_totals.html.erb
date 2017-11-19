@@ -1,41 +1,45 @@
 <table class="table table-hover">
-  <tr>
-    <th>Team</th>
-    <th>Season Total</th>
-    <th>Session 1</th>
-    <th>Session 2</th>
-    <th>Session 3</th>
-    <th>Session 4</th>
-    <th>Session 5</th>
-    <th>Playoffs</th>
-  </tr>
+  <thead>
+    <tr>
+      <th>Team</th>
+      <th>Season Total</th>
+      <th>Session 1</th>
+      <th>Session 2</th>
+      <th>Session 3</th>
+      <th>Session 4</th>
+      <th>Session 5</th>
+      <th>Playoffs</th>
+    </tr>
+  </thead>
 
-  <% @league.teams.order("season_total DESC").each do |team| %>
-  <tr>
-    <th>
-      <%= link_to team.name, team %>
-    </th>
-    <td>
-      <%= team.season_total %>
-    </td>
-    <td>
-      <%= team.s1_total %>
-    </td>
-    <td>
-      <%= team.s2_total %>
-    </td>
-    <td>
-      <%= team.s3_total %>
-    </td>
-    <td>
-      <%= team.s4_total %>
-    </td>
-    <td>
-      <%= team.s5_total %>
-    </td>
-    <td>
-      <%= team.playoff_total %>
-    </td>
-  </tr>
-  <% end %>
+  <tbody>
+    <% @league.teams.order("season_total DESC").each do |team| %>
+      <tr>
+        <th>
+          <%= link_to team.name, team %>
+        </th>
+        <td>
+          <%= team.season_total %>
+        </td>
+        <td>
+          <%= team.s1_total %>
+        </td>
+        <td>
+          <%= team.s2_total %>
+        </td>
+        <td>
+          <%= team.s3_total %>
+        </td>
+        <td>
+          <%= team.s4_total %>
+        </td>
+        <td>
+          <%= team.s5_total %>
+        </td>
+        <td>
+          <%= team.playoff_total %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>

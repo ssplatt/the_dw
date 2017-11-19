@@ -11,19 +11,22 @@
   <% end %>
 </ul>
 <table class="table table-hover">
-  <tr>
-    <th>Season Total</th>
-    <th>Session 1</th>
-    <th>Session 2</th>
-    <th>Session 3</th>
-    <th>Session 4</th>
-    <th>Session 5</th>
-    <th>Playoffs</th>
-  </tr>
-
-  <tr>
-    <%= render "totals.html.erb" %>
-  </tr>
+  <thead>
+    <tr>
+      <th>Season Total</th>
+      <th>Session 1</th>
+      <th>Session 2</th>
+      <th>Session 3</th>
+      <th>Session 4</th>
+      <th>Session 5</th>
+      <th>Playoffs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <%= render "totals.html.erb" %>
+    </tr>
+  </tbody>
 </table>
 
 <ul>
