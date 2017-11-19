@@ -77,8 +77,18 @@ class Team < ApplicationRecord
       end
       
       self.season_total += lu.total_score
-      self.save
     end
+    
+    # round all to two decimals
+    self.s1_total.round(2)
+    self.s2_total.round(2)
+    self.s3_total.round(2)
+    self.s4_total.round(2)
+    self.s5_total.round(2)
+    self.playoff_total.round(2)
+    self.season_total.round(2)
+    
+    self.save
   end
   
   private
