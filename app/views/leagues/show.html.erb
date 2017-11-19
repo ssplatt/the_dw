@@ -1,6 +1,6 @@
 <% provide(:title, @league.name) %>
 <div class="row">
-  <aside class="col-md-4">
+  <aside class="col-md-12 col-lg-12">
     <section class="league_info">
       <h1>
         <%= @league.name %>
@@ -14,12 +14,7 @@
       <% if @league.teams.count < @league.num_teams %>
         <%= link_to "Invite more teams", invite_url(:league_id => @league.id), class: "btn btn-primary" %>
       <% end %>
-      <% (1..17).each do |week| %>
-        <h3>Week: <%= week %></h3>
-        <ul>
-          <%= render partial: 'divisions/division', collection: @league.divisions, locals: {week: week} %>
-        </ul>
-      <% end %>
+      <%= render "totals.html.erb" %>
     </section>
   </aside>
 </div>

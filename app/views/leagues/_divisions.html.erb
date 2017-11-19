@@ -1,0 +1,6 @@
+<% (1..17).each do |week| %>
+  <h3>Week: <%= week %></h3>
+  <ul>
+    <%= render partial: 'divisions/division', collection: @league.divisions, locals: {week: week} %>
+  </ul>
+<% end %>
