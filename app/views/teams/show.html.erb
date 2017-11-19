@@ -11,5 +11,8 @@
   <% end %>
 </ul>
 <ul>
+  <%= render "totals.html.erb" %>
+</ul>
+<ul>
   <%= render @team.lineups.sort_by{ |l| l.week } %>
 </ul>

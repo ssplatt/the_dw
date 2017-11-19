@@ -42,6 +42,45 @@ class Team < ApplicationRecord
     update_attribute(:invite_digest,  Team.digest(invite_digest))
   end
   
+  # calculate session and season totals
+  def calc_totals
+    # init for fresh totals
+    self.s1_total = 0
+    self.s2_total = 0
+    self.s3_total = 0
+    self.s4_total = 0
+    self.s5_total = 0
+    self.playoff_total = 0
+    self.season_total = 0
+    
+    self.lineups.each do |lu|
+      if lu.week.between?(1, 4)
+        # session 1
+        self.s1_total += lu.total_score
+      elsif lu.week.between?(5, 8)
+        # session 2
+        self.s2_total += lu.total_score
+      elsif lu.week.between?(9, 12)
+        # session 3
+        self.s3_total += lu.total_score
+      elsif lu.week.between?(13, 16)
+        # session 4
+        self.s4_total += lu.total_score
+      elsif lu.week.between?(17, 20)
+        # session 5
+        self.s5_total += lu.total_score
+        
+        # playoffs
+        if lu.week.between?(18, 20)
+          self.playoff_total += lu.total_score
+        end
+      end
+      
+      self.season_total += lu.total_score
+      self.save
+    end
+  end
+  
   private
     
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170722194537) do
+ActiveRecord::Schema.define(version: 20171119165923) do
 
   create_table "divisions", force: :cascade do |t|
     t.text     "name"
@@ -73,6 +73,13 @@ ActiveRecord::Schema.define(version: 20170722194537) do
     t.string   "invite_digest"
     t.boolean  "invite_claimed",    default: false
     t.datetime "invite_claimed_at"
+    t.float    "season_total"
+    t.float    "s1_total"
+    t.float    "s2_total"
+    t.float    "s3_total"
+    t.float    "s4_total"
+    t.float    "s5_total"
+    t.float    "playoff_total"
     t.index ["league_id"], name: "index_teams_on_league_id"
     t.index ["name"], name: "index_teams_on_name"
     t.index ["user_id"], name: "index_teams_on_user_id"
