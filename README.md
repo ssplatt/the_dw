@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/ssplatt/the_dw.svg?branch=master)](https://travis-ci.org/ssplatt/the_dw)
+[![Maintainability](https://api.codeclimate.com/v1/badges/49f3420fb0229eca6039/maintainability)](https://codeclimate.com/github/ssplatt/the_dw/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/49f3420fb0229eca6039/test_coverage)](https://codeclimate.com/github/ssplatt/the_dw/test_coverage)
 
 ## Getting started
 
