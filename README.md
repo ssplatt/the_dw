@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ssplatt/the_dw.svg?branch=master)](https://travis-ci.org/ssplatt/the_dw)
+
 ## Getting started
 
 To get started with the app, clone the repo and then install the needed gems:
