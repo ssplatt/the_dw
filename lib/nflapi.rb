@@ -5,6 +5,13 @@ class NFLApi
   
   def initialize()
   end
+  
+  # Get a list of fantasy stats used throughout fantasy.
+  def get_stats_headers(options={format: "json"})
+    Rails.cache.fetch(["/game/stats", { query: options }], :expires => 1.hour) do
+      self.class.get("/game/stats", { query: options })
+    end
+  end
 
   def get_players_stats(options={})
     #player stats
