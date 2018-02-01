@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
+  get '/csvout',  to: 'csvout#index', defaults: { season: '2017', week: '1' }
+  get '/csvout/:week',  to: 'csvout#index', defaults: { season: '2017', week: '1' }
   get '/csvout/:season/:week',  to: 'csvout#index', defaults: { season: '2017', week: '1' }
   resources :users
   resources :account_activations, only: [:edit]
