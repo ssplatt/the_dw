@@ -13,7 +13,7 @@ class NFLApi
     end
   end
 
-  def get_players_stats(options={})
+  def get_players_stats(options={format: "json"})
     #player stats
     #http://api.fantasy.nfl.com/v1/docs/service?serviceName=playersStats
     #stattype, season, week, position
@@ -30,13 +30,13 @@ class NFLApi
     #player details
     #http://api.fantasy.nfl.com/v1/docs/service?serviceName=playersDetails
     # playerId
-    options = { :playerId => id.to_s }
+    options = { :playerId => id.to_s, format: "json" }
     Rails.cache.fetch(["/players/details", { query: options }], :expires => 1.hour) do
       self.class.get("/players/details", { query: options })
     end
   end
   
-  def get_players_weekstats(options={})
+  def get_players_weekstats(options={format: "json"})
     #live stats
     #http://api.fantasy.nfl.com/v1/docs/service?serviceName=playersWeekStats
     #season, week, position
