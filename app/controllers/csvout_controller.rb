@@ -1,10 +1,12 @@
 require "nflapi"
 
-class CSVOutController < ApplicationController
+class CsvoutController < ApplicationController
 
   def index
-    @week = params[:week] || 1
-    @season = params[:season] || 2017
+    @week = params[:week]
+    @season = params[:season]
+    @csv = Csvout.new
+    render plain: @csv.players_week_stats()
   end
   
   private
